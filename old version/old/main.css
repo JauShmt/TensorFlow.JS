@@ -1,0 +1,71 @@
+header{
+  width: 100%;
+  background-color:#194d33;
+  border-radius:2px;
+  }
+
+section{
+  width: 100%;
+  height: 100%;
+  display:flex;
+  justify-content:space-around;
+  flex-direction:row;
+  flex-wrap:wrap;
+  }
+
+.title_area{
+  width: 80%;
+  background-color:gray;
+  border-radius:4px;
+  flex-grow:5;
+  flex-basis:5;
+  order:1;
+  }
+
+.display_area{
+  background-color:black;
+  border-radius:10px;
+  flex-grow:3;
+  flex-basis:3;
+  order:2;
+  }
+
+.cam_controls{
+  background-color:gray;
+  border-radius:4px;
+  flex-grow:2;
+  flex-basis:2;
+  order:3;
+  }
+
+.start_cam{
+  background-color:#194d33;
+  }
+
+.stop_cam{
+  background-color:#194d33;
+  }
+
+.right_panel{
+  background-color:gray;
+  border-radius:4px;
+  flex-grow:2;
+  order:4;
+  }
+
+.pic{
+  background-color:#194d33;
+  }
+
+.found_items_lst{
+  background-color:gray;
+  border-radius:4px;
+  flex-grow:3;
+  flex-basis:3;
+  order:5;
+  }
+
+footer{
+  width: 100%;
+  }
+

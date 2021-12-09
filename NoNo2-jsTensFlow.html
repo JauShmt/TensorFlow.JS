@@ -19,11 +19,11 @@
 
     <h1 class="d-flex justify-content-center bg-secondary bg-opacity-25 mt-3 ms-5 rounded-3"width="100%">titre de la page</h1>
 
-    <div clas="container">
+    <div clas="container" id="liveView">
         <div class="row">
             <div class="col-9 mb-3">
-                <div class="webcam">
-                    <div class="video-outer rounded-3 bg-secondary bg-opacity-25 ms-5 me-5 mt-3" id="liveView">
+                <div class="webcam" width="100%" min-height="800px" height="40%" max-height="800px">
+                    <div class="video-outer rounded-3 bg-secondary bg-opacity-25 ms-5 me-5 mt-3">
                         <video id="video" height="80%" width="100%" autoplay></video> 
                     </div> 
                 </div>
@@ -137,21 +137,21 @@ function predictWebcam() {
     // they have a high confidence score.
     for (let n = 0; n < predictions.length; n++) {
       // If we are over 66% sure we are sure we classified it right, draw it!
-      console.log(predictions[n].score)
+      console.log(predictions[n].score, predictions[n].class, predictions[n])
       if (predictions[n].score > 0.66) {
         const p = document.createElement('p');
         p.innerText = predictions[n].class  + ' - with ' 
             + Math.round(parseFloat(predictions[n].score) * 100) 
             + '% confidence.';
-        p.style = 'margin-left: ' + predictions[n].bbox[0]// + 'px; margin-top: '
-            + (predictions[n].bbox[1] - 300) //+ 'px; width: ' 
-            + (predictions[n].bbox[2] - 10) //+ 'px; top: 0; left: 0;';
+        p.style = 'margin-left: ' + predictions[n].bbox[0] + 'px; margin-top: '
+            + (predictions[n].bbox[1]) + 'px; width: ' 
+            + (predictions[n].bbox[2]) + 'px; top: 0; left: 0;';
 
         const highlighter = document.createElement('div');
         highlighter.setAttribute('class', 'highlighter');
-        highlighter.style = 'z-index:10000; background-color:red; left: ' + predictions[n].bbox[0] + 'px; top: '
-            + predictions[n].bbox[1] + 'px; width: ' 
-            + predictions[n].bbox[2] + 'px; height: '
+        highlighter.style = 'background-color:yellow; opacity:0.15; left: ' + (predictions[n].bbox[0] +450) + 'px; top: '
+            + (predictions[n].bbox[1] +150 ) + 'px; width: ' 
+            + (predictions[n].bbox[2] - 250) + 'px; height: '
             + predictions[n].bbox[3] + 'px;';
 
         liveView.appendChild(highlighter);
@@ -211,11 +211,18 @@ cocoSsd.load().then(function (loadedModel) {
             var stream = video.srcObject;
             var tracks = stream.getTracks();
 
-            for (var i = 0; i < tracks.length; i++) {
-                var track = tracks[i];
-                track.stop();
-            }
+            for (track of tracks) track.stop();
+
+            // for (var i = 0; i < tracks.length; i++) {
+            //     var track = tracks[i];
+            //     track.stop();
+            // }
             video.srcObject = null;
+            
+            children.forEach( 
+                function(x){
+                    x.remove();
+                });
         }
 
         ///$(function () { start(); });
